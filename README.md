@@ -29,7 +29,7 @@ For running tests:
 |  POST  | `/api/authors/auth`  |                   `{ email: string, password: string }`                    |                `{ accessToken: string }`                 |    ❌     |
 |  PUT   |    `/api/authors`    |                 `{ firstName: string, lastName: string }`                  |                            ❌                            |    ✅     |
 | DELETE |    `/api/authors`    |                                     ❌                                     |                            ❌                            |    ✅     |
-|  GET   |     `/api/todos`     |                                     ❌                                     |      `{ todoID: int, title: string, body: string }`      |    ✅     |
+|  GET   |     `/api/todos`     |                                     ❌                                     |      `{ todos: [{ todoID: int, title: string, body: string }] }`      |    ✅     |
 |  POST  |     `/api/todos`     |                     `{ title: string, body: string }`                      |      `{ todoID: int, title: string, body: string }`      |    ✅     |
 |  PUT   | `/api/todos/:todoID` |                     `{ title: string, body: string }`                      |                            ❌                            |    ✅     |
 | DELETE | `/api/todos/:todoID` |                                     ❌                                     |                            ❌                            |    ✅     |
