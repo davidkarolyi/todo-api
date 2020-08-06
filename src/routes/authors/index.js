@@ -77,6 +77,23 @@ authorsRouter.post(
   }
 );
 
+authorsRouter.put(
+  "/",
+  validateRequest(
+    body("firstName").isString().isLength({ min: 1, max: 40 }),
+    body("lastName").isString().isLength({ min: 1, max: 40 })
+  ),
+  validateAuthor,
+  async (req, res, next) => {
+    try {
+      await updateAuthor({ ...req.body, authorID: req.authorID });
+      res.sendStatus(200);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 module.exports = {
   authorsRouter,
 };
