@@ -41,6 +41,32 @@ todosRouter.post(
   }
 );
 
+todosRouter.put(
+  "/:todoID",
+  validateRequest(
+    param("todoID").isInt(),
+    body("title").isString().isLength({ min: 1, max: 40 }),
+    body("body").isString().isLength({ min: 1, max: 200 })
+  ),
+  validateAuthor,
+  async (req, res, next) => {
+    try {
+      const { todoID } = req.params;
+      const authorID = req.authorID;
+      if (!(await todoExistsUnderAuthor({ todoID, authorID }))) {
+        res.status(404).json({
+          error: `author doesn't have a todo item with ID: ${todoID}`,
+        });
+        return;
+      }
+      await updateTodo({ ...req.body, todoID, authorID });
+      res.sendStatus(200);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 
 module.exports = {
   todosRouter,
