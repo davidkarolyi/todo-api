@@ -21,6 +21,26 @@ todosRouter.get("/", validateAuthor, async (req, res, next) => {
   }
 });
 
+todosRouter.post(
+  "/",
+  validateRequest(
+    body("title").isString().isLength({ min: 1, max: 40 }),
+    body("body").isString().isLength({ min: 0, max: 200 })
+  ),
+  validateAuthor,
+  async (req, res, next) => {
+    try {
+      const insertedTodo = await createTodo({
+        ...req.body,
+        authorID: req.authorID,
+      });
+      res.status(201).send(insertedTodo);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 
 module.exports = {
   todosRouter,
