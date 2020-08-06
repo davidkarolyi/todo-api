@@ -67,6 +67,27 @@ todosRouter.put(
   }
 );
 
+todosRouter.delete(
+  "/:todoID",
+  validateRequest(param("todoID").isInt()),
+  validateAuthor,
+  async (req, res, next) => {
+    const { todoID } = req.params;
+    const authorID = req.authorID;
+    try {
+      if (!(await todoExistsUnderAuthor({ todoID, authorID }))) {
+        res.status(404).json({
+          error: `author doesn't have a todo item with ID: ${todoID}`,
+        });
+        return;
+      }
+      await deleteTodo({ authorID, todoID });
+      res.sendStatus(200);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = {
   todosRouter,
