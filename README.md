@@ -33,7 +33,3 @@ For running tests:
 |  POST  |     `/api/todos`     |                     `{ title: string, body: string }`                      |      `{ todoID: int, title: string, body: string }`      |    ✅     |
 |  PUT   | `/api/todos/:todoID` |                     `{ title: string, body: string }`                      |                            ❌                            |    ✅     |
 | DELETE | `/api/todos/:todoID` |                                     ❌                                     |                            ❌                            |    ✅     |
-
-# Tip for the Reviewer
-
-Tried to rebase commit messages into digastable chunks. Feel free to review the code commit by commit, there are no conflicting changes in the commit tree.
